@@ -15,13 +15,13 @@ export enum FilterQueryDefs {
 }
 
 export enum FilterColumn {
-    Name = "name",
+    Title = "title",
     Amount = "amount",
     Distance = "distance",
 }
 
 export enum FilterColumnDefs {
-    Name = "Название",
+    Title = "Название",
     Amount = "Количество",
     Distance = "Расстояние",
 }
@@ -59,8 +59,8 @@ export const FilterQueryList = [
 
 export const FilterColumnList = [
     {
-        id: FilterColumn.Name,
-        name: FilterColumnDefs.Name 
+        id: FilterColumn.Title,
+        name: FilterColumnDefs.Title 
     },
     {
         id: FilterColumn.Amount,

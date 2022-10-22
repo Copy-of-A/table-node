@@ -12,8 +12,8 @@ export const useTableHook = (filterQuery: FilterQuery | null) => {
     const navigate = useNavigate()
 
     let filterValue: string = ""
-    if (searchParams.get(FilterColumn.Name) !== null) {
-        filterValue = `${FilterColumn.Name}=${searchParams.get(FilterColumn.Name)}`
+    if (searchParams.get(FilterColumn.Title) !== null) {
+        filterValue = `${FilterColumn.Title}=${searchParams.get(FilterColumn.Title)}`
     } else if (searchParams.get(FilterColumn.Amount) !== null) {
         filterValue = `${FilterColumn.Amount}=${searchParams.get(FilterColumn.Amount)}`
     } else if (searchParams.get(FilterColumn.Distance) !== null) {
