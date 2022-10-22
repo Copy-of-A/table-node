@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { apiURL, FilterColumn, FilterQuery, RowData } from "../const";
 
 export interface TableProps {
@@ -9,6 +9,7 @@ export interface TableProps {
 export const useTableHook = (filterQuery: FilterQuery | null) => {
     const [searchParams] = useSearchParams();
     const [data, setData] = useState<Array<RowData>>([]);
+    const navigate = useNavigate()
 
     let filterValue: string = ""
     if (searchParams.get(FilterColumn.Name) !== null) {
@@ -33,6 +34,9 @@ export const useTableHook = (filterQuery: FilterQuery | null) => {
             })
             .then((myJson) => {
                 setData(myJson)
+            })
+            .catch(() => {
+                navigate('/')
             });
     }
 

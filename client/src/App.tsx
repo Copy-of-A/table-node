@@ -11,7 +11,7 @@ export const App = () => {
       <Route path="/equals" element={<Table filterQuery={FilterQuery.Equals} />} />
       <Route path="/less" element={<Table filterQuery={FilterQuery.Less} />} />
       <Route path="/more" element={<Table filterQuery={FilterQuery.More} />} />
-      <Route path="*" element={<Navigate to="/app" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

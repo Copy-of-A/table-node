@@ -1,4 +1,5 @@
 const http = require('http')
+const table_model = require('./model')
 
 const headParams = {
     "Content-Type": "application/json",
@@ -10,7 +11,17 @@ const headParams = {
 const host = 'localhost'
 const port = 8080
 
-const table_model = require('./model')
+const return200 = (res, params, data) => {
+    res.writeHead(200, params);
+    res.end(JSON.stringify(data));
+}
+
+const return404 = (res, params) => {
+    res.writeHead(404, params);
+    res.end(JSON.stringify({ message: "Route not found" }));
+}
+
+const getFilterParam = (url) => url.split("?")[1]?.split("=")
 
 const requestListener = async function (req, res) {
     const url = req.url;
@@ -20,58 +31,43 @@ const requestListener = async function (req, res) {
         res.end();
         return;
     }
-    
+
     if (req.method === "GET") {
         if (url === '/api') {
             table_model.getAllRows()
-                .then((data) => {
-                    res.writeHead(200, headParams);
-                    res.end(JSON.stringify(data));
-                })
+                .then((data) => return200(res, headParams, data))
+                .catch(() => return404(res, headParams))
         }
         else if (url.match(/\/api\/contains\?([a-z]+)=([a-z]+)/)) {
-            const [column, value] = url.split("?")[1].split("=");
-            console.log("column = ", column, " ; value = ", value)
+            const [column, value] = getFilterParam(url);
 
             table_model.getFilterRowsContains(column, value)
-                .then((data) => {
-                    res.writeHead(200, headParams);
-                    res.end(JSON.stringify(data));
-                })
+                .then((data) => return200(res, headParams, data))
+                .catch(() => return404(res, headParams))
         }
         else if (url.match(/\/api\/equals\?([a-z]+)=([0-9a-z]+)/)) {
-            const [column, value] = url.split("?")[1].split("=");
-            console.log("column = ", column, " ; value = ", value)
+            const [column, value] = getFilterParam(url);
 
             table_model.getFilterRowsEquals(column, value)
-                .then((data) => {
-                    res.writeHead(200, headParams);
-                    res.end(JSON.stringify(data));
-                })
+                .then((data) => return200(res, headParams, data))
+                .catch(() => return404(res, headParams))
         }
         else if (url.match(/\/api\/more\?([a-z]+)=([0-9]+)/)) {
-            const [column, value] = url.split("?")[1].split("=");
-            console.log("column = ", column, " ; value = ", value)
+            const [column, value] = getFilterParam(url);
 
             table_model.getFilterRowsMore(column, value)
-                .then((data) => {
-                    res.writeHead(200, headParams);
-                    res.end(JSON.stringify(data));
-                })
+                .then((data) => return200(res, headParams, data))
+                .catch(() => return404(res, headParams))
         }
         else if (url.match(/\/api\/less\?([a-z]+)=([0-9]+)/)) {
-            const [column, value] = url.split("?")[1].split("=");
-            console.log("column = ", column, " ; value = ", value)
+            const [column, value] = getFilterParam(url);
 
             table_model.getFilterRowsLess(column, value)
-                .then((data) => {
-                    res.writeHead(200, headParams);
-                    res.end(JSON.stringify(data));
-                })
+                .then((data) => return200(res, headParams, data))
+                .catch(() => return404(res, headParams))
         }
         else {
-            res.writeHead(404, headParams);
-            res.end(JSON.stringify({ message: "Route not found" }));
+            return404(res, headParams)
         }
     }
 
