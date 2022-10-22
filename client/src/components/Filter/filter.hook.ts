@@ -14,6 +14,9 @@ export const useFilter = () => {
             console.log("useEffect", `/${query}?${column}=${inputValue}`)
             navigate(`/${query}?${column}=${inputValue}`)
         }
+        else {
+            navigate('/')
+        }
     }, [inputValue, column, query])
 
     const handleValueChange = (e: ChangeEvent) => {
@@ -32,6 +35,7 @@ export const useFilter = () => {
         setInputValue("")
         setColumn("none")
         setQuery("none")
+        navigate('/')
     }
 
     return {
