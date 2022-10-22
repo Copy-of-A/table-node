@@ -12,20 +12,24 @@ export const Table: FC<TableProps> = ({ filterQuery }) => {
     } = useTableHook(filterQuery);
 
     return (
-        <div>
+        <>
             <Filter />
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Amount</th>
-                        <th>Distance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((el) => <Row key={el.id} data={el} />)}
-                </tbody>
-            </table>
-        </div>
+            {data.length > 0
+                ?
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Amount</th>
+                            <th>Distance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((el) => <Row key={el.id} data={el} />)}
+                    </tbody>
+                </table>
+                : <p>По заданным фильтрам ничего не найдено</p>
+            }
+        </>
     )
 }
