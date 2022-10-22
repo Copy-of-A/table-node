@@ -2,6 +2,7 @@ import { FC } from "react"
 import { Filter } from "../Filter/Filter";
 import { Row } from "../Row/Row";
 import { TableProps, useTableHook } from "./table.hook"
+import styles from './table.module.scss'
 
 export const Table: FC<TableProps> = ({ filterQuery }) => {
     console.log("filter", filterQuery)
@@ -13,7 +14,7 @@ export const Table: FC<TableProps> = ({ filterQuery }) => {
     return (
         <div>
             <Filter />
-            <table>
+            <table className={styles.table}>
                 <thead>
                     <tr>
                         <th>Title</th>
