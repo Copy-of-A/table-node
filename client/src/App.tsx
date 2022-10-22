@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { Table } from './components/Table/Table'
+import { FilterQuery } from './components/const'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export const App = () => {
   return (
-    <div className="App">
-     Hi
-    </div>
+    <Routes>
+      <Route path="/" element={<Table filterQuery={null} />} />
+      <Route path="/contains" element={<Table filterQuery={FilterQuery.Contains}/>} />
+      <Route path="/equals" element={<Table filterQuery={FilterQuery.Equals} />} />
+      <Route path="/less" element={<Table filterQuery={FilterQuery.Less} />} />
+      <Route path="/more" element={<Table filterQuery={FilterQuery.More} />} />
+      <Route path="*" element={<Navigate to="/app" replace />} />
+    </Routes>
   )
 }
-
-export default App
